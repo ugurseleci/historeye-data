@@ -32,6 +32,17 @@ def neighbourhood_bytes(tile_size, gh):
     return total
 
 
+def _has_answers(path):
+    """Denetim dosyasında elle girilmiş cevap var mı (UTF-8, virgül ya da noktalı virgül)."""
+    if not os.path.exists(path):
+        return False
+    with open(path, encoding="utf-8-sig", errors="replace") as fh:
+        text = fh.read()
+    delim = ";" if text.count(";") > text.count(",") else ","
+    rows = list(csv.DictReader(text.splitlines(), delimiter=delim))
+    return any((r.get("doğru_bina_mı") or "").strip() or (r.get("not") or "").strip() for r in rows)
+
+
 def build(args):
     features = osm_read.read(args.pbf)
     match_stats, labels = {}, {}
@@ -117,7 +128,12 @@ def build(args):
     rng = random.Random(args.seed)
     ar = sorted((r for r in records if r["ar"]), key=lambda r: r["id"])
     sample = rng.sample(ar, min(args.sample, len(ar)))
-    with open(os.path.join(args.out, "denetim-ornegi.csv"), "w", encoding="utf-8", newline="") as fh:
+    audit_path = os.path.join(args.out, "denetim-ornegi.csv")
+    if _has_answers(audit_path):
+        # Doldurulmuş denetim dosyasının üzerine yazılmaz (P0'da elle doldurulan dosya kayboluyordu).
+        audit_path = os.path.join(args.out, f"denetim-ornegi-{args.version}-{args.seed}.csv")
+        print(f"Doldurulmuş denetim dosyası korunuyor; yeni örneklem: {audit_path}")
+    with open(audit_path, "w", encoding="utf-8", newline="") as fh:
         w = csv.writer(fh)
         w.writerow(["id", "ad", "tür", "şekil", "alan_m2", "yarıçap_m", "osm_bağlantısı", "doğru_bina_mı", "not"])
         for r in sample:

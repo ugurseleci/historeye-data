@@ -178,3 +178,17 @@ class Institution(unittest.TestCase):
         foundation = {"claims": {"P31": mosque["claims"]["P31"] + [
             {"rank": "normal", "mainsnak": {"snaktype": "value", "datavalue": {"value": {"id": "Q157031"}}}}]}}
         self.assertTrue(wd.is_institution(foundation, closure))
+
+
+class AuditProtection(unittest.TestCase):
+    def test_filled_audit_detected(self):
+        import os, tempfile
+        from pipeline import cli
+        d = tempfile.mkdtemp()
+        p = os.path.join(d, "a.csv")
+        with open(p, "w", encoding="utf-8") as fh:
+            fh.write("id,ad,doğru_bina_mı,not\nosm-w1,X,,\n")
+        self.assertFalse(cli._has_answers(p))
+        with open(p, "w", encoding="utf-8") as fh:
+            fh.write("id;ad;doğru_bina_mı;not\nosm-w1;X;DOĞRU;\n")  # Türkçe Excel: noktalı virgül
+        self.assertTrue(cli._has_answers(p))
