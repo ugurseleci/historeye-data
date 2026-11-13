@@ -38,8 +38,8 @@ NOT_AR_MEMORIAL = {"plaque", "stolperstein", "blue_plaque", "stele"}
 MIN_AREA_M2 = 20.0
 MAX_AREA_M2 = 50_000.0
 MAX_EXTENT_M = 300.0
-MAX_VERTICES = 64
-DP_TOLERANCES_M = (0.5, 1.0, 2.0)
+MAX_VERTICES = 128
+DP_TOLERANCES_M = (0.5, 1.0, 2.0, 3.0)
 METERS_PER_LEVEL = 3.2
 
 _HEIGHT_RE = re.compile(r"^\s*([0-9]+(?:[.,][0-9]+)?)\s*(m|meter|meters|metre|metres)?\s*$", re.I)
@@ -151,10 +151,26 @@ def _simplify(ring_ll):
     return ring, None, metrics
 
 
-def classify(feature):
-    """Bir OSM öğesinden kayıtlar ve (atıldıysa) sebep döndürür: (kayıtlar, sebep)."""
+def type_from_osm(tags):
+    """Tarihi etiketi olmayan, Wikidata'dan yapı olduğu anlaşılan öğe için tür adı."""
+    b = tags.get("building")
+    if b in {"mosque", "church", "synagogue", "palace", "temple", "chapel", "cathedral", "monastery", "tower",
+             "castle", "mansion", "house", "school", "bridge"}:
+        return {"cathedral": "church"}.get(b, b)
+    if tags.get("amenity") == "place_of_worship":
+        return {"muslim": "mosque", "christian": "church", "jewish": "synagogue"}.get(tags.get("religion"), "temple")
+    if tags.get("man_made") in {"tower", "lighthouse", "bridge"}:
+        return tags["man_made"]
+    return "building" if b and b != "no" else "yes"
+
+
+def classify(feature, htype=None):
+    """Bir OSM öğesinden kayıtlar ve (atıldıysa) sebep döndürür: (kayıtlar, sebep).
+
+    htype verilirse (Wikidata'dan tarihi yapı olduğu doğrulanmış öğe) OSM etiketlerinin yerine kullanılır.
+    """
     tags = feature["tags"]
-    htype = historic_type(tags)
+    htype = htype or historic_type(tags)
     if htype is None:
         return [], "not_candidate"
     if htype in NOT_STRUCTURE_OBJECTS:

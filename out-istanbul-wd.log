@@ -1,0 +1,104 @@
+OSM öğesi: 5666, QID: 3782
+  sınıf kapanışı Q33506: 372
+  QLever: 61 OSM'de karşılığı olmayan statülü öğe
+{
+ "dataset_version": "p0-istanbul-wd",
+ "osm_features": 5666,
+ "records": 1296,
+ "ar": 696,
+ "list_only": 600,
+ "dropped": {
+  "wd_settlement_or_area": 1677,
+  "wd_not_structure": 892,
+  "wd_not_historic": 1485,
+  "no_name": 306,
+  "object_not_structure": 61,
+  "wd_missing": 4
+ },
+ "shapes": {
+  "nokta": 424,
+  "nokta+yarıçap": 50,
+  "poligon": 822
+ },
+ "flags": {
+  "via_wikidata": 458,
+  "large_type_as_point": 317,
+  "match_conflict": 127,
+  "wd_name_mismatch": 81,
+  "too_small": 50,
+  "wikidata_only": 49,
+  "line_geometry": 48,
+  "wd_far": 37,
+  "wd_no_coord": 33,
+  "list_only_type": 31,
+  "area_mode": 25,
+  "not_structure": 5,
+  "small_plaque": 3
+ },
+ "by_type_top": {
+  "mosque/ar": 266,
+  "yes/list": 171,
+  "building/ar": 139,
+  "yes/ar": 68,
+  "memorial/list": 63,
+  "memorial/ar": 62,
+  "ruins/list": 58,
+  "tomb/list": 57,
+  "monument/list": 50,
+  "tomb/ar": 36,
+  "mosque/list": 35,
+  "archaeological_site/list": 30,
+  "building/list": 30,
+  "ruins/ar": 30,
+  "church/ar": 28,
+  "aqueduct/list": 23,
+  "citywalls/list": 15,
+  "church/list": 13,
+  "castle/ar": 12,
+  "city_gate/list": 9,
+  "castle/list": 9,
+  "fountain/ar": 9,
+  "city_gate/ar": 9,
+  "monument/ar": 7,
+  "aqueduct/ar": 7
+ },
+ "with_wikidata_tag": 765,
+ "wikidata_match": {
+  "verified": 589,
+  "match_conflict": 127,
+  "wikidata_only": 49
+ },
+ "with_period": 231,
+ "with_architect": 92,
+ "with_image": 465,
+ "with_height": 34,
+ "with_levels_estimate": 37,
+ "names": {
+  "tr": 663,
+  "en": 708,
+  "local": 1242
+ },
+ "tiles": {
+  "count": 138,
+  "records_per_tile_p50_p95_max": [
+   2,
+   27,
+   302
+  ],
+  "bytes_p50_p95_p99_max": [
+   367,
+   3377,
+   30976,
+   35646
+  ],
+  "total_bytes": 162592,
+  "bytes_per_record": 125.5,
+  "densest_tile": "sxk97",
+  "densest_3x3_bytes": 93255
+ },
+ "index_bytes": {
+  "sx7": 649,
+  "sxk": 5032,
+  "sxm": 290
+ }
+}

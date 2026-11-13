@@ -8,7 +8,8 @@ import os
 import random
 import statistics
 
-from . import classify, osm_read, tiles
+from . import classify, enrich, osm_read, tiles
+from . import wikidata as wd
 from .geohash import bbox, encode
 
 
@@ -33,12 +34,34 @@ def neighbourhood_bytes(tile_size, gh):
 
 def build(args):
     features = osm_read.read(args.pbf)
-    records, dropped = [], collections.Counter()
-    for f in features:
-        recs, reason = classify.classify(f)
-        if reason:
-            dropped[reason] += 1
-        records.extend(recs)
+    match_stats, labels = {}, {}
+    if args.wikidata:
+        os.makedirs(args.cache, exist_ok=True)
+        qids = {enrich._qid(f["tags"]) for f in features} - {None}
+        print(f"OSM öğesi: {len(features)}, QID: {len(qids)}")
+        items = wd.fetch_entities(qids, os.path.join(args.cache, "entities.json"))
+        redirects = {v["redirect"] for v in items.values() if isinstance(v, dict) and "redirect" in v}
+        if redirects:
+            items = wd.fetch_entities(qids | redirects, os.path.join(args.cache, "entities.json"))
+        closure = wd.class_closure(os.path.join(args.cache, "classes.json"))
+        records, dropped = enrich.select(features, items, closure, enrich.cutoff(args.cutoff_years))
+        ref_ids, match_stats = enrich.verify_and_enrich(records, items, closure)
+        if args.bbox:
+            extra, items = enrich.wikidata_only_candidates(
+                [float(x) for x in args.bbox.split(",")], {r.get("qid") for r in records}, args.cache,
+                closure, enrich.cutoff(args.cutoff_years))
+            records.extend(extra)
+            match_stats = dict(match_stats, wikidata_only=len(extra))
+        lab = wd.fetch_entities(ref_ids, os.path.join(args.cache, "labels.json"), props="labels")
+        labels = {q: {k: v for k, v in (lab.get(q) or {}).get("labels", {}).items() if k in ("tr", "en")}
+                  for q in ref_ids}
+    else:
+        records, dropped = [], collections.Counter()
+        for f in features:
+            recs, reason = classify.classify(f)
+            if reason:
+                dropped[reason] += 1
+            records.extend(recs)
     # Aynı kimlik iki kez gelmesin (ör. bölge dosyası taşması); ilk görülen kalır.
     seen, unique = set(), []
     for r in records:
@@ -50,7 +73,7 @@ def build(args):
     records = unique
 
     os.makedirs(args.out, exist_ok=True)
-    stats = tiles.build(records, args.out, args.version)
+    stats = tiles.build(records, args.out, args.version, labels)
     sizes = list(stats["tile_size"].values())
     counts = list(stats["tile_count"].values())
     flags = collections.Counter(fl for r in records for fl in r["flags"])
@@ -69,6 +92,10 @@ def build(args):
         "flags": dict(flags.most_common()),
         "by_type_top": {f"{t}/{k}": n for (t, k), n in by_type.most_common(25)},
         "with_wikidata_tag": sum("qid" in r for r in records),
+        "wikidata_match": match_stats,
+        "with_period": sum("period" in r for r in records),
+        "with_architect": sum("architect" in r for r in records),
+        "with_image": sum("image" in r for r in records),
         "with_height": sum("height_m" in r for r in records),
         "with_levels_estimate": sum("label_height_m" in r for r in records),
         "names": {lang: sum(lang in r["names"] for r in records) for lang in ("tr", "en", "local")},
@@ -94,8 +121,11 @@ def build(args):
         w = csv.writer(fh)
         w.writerow(["id", "ad", "tür", "şekil", "alan_m2", "yarıçap_m", "osm_bağlantısı", "doğru_bina_mı", "not"])
         for r in sample:
-            kind, num = r["osm"][0], r["osm"][1:].split("-")[0]
-            url = f"https://www.openstreetmap.org/{ {'n': 'node', 'w': 'way', 'r': 'relation'}[kind] }/{num}"
+            if r["osm"]:
+                kind, num = r["osm"][0], r["osm"][1:].split("-")[0]
+                url = f"https://www.openstreetmap.org/{ {'n': 'node', 'w': 'way', 'r': 'relation'}[kind] }/{num}"
+            else:
+                url = f"https://www.wikidata.org/wiki/{r['qid']}"
             name = r["names"].get("tr") or r["names"].get("local") or r["names"].get("en")
             w.writerow([r["id"], name, r["type"], "poligon" if "footprint" in r else "nokta",
                         r.get("area_m2", ""), r.get("radius_m", ""), url, "", ""])
@@ -111,6 +141,10 @@ def main():
     b.add_argument("--version", default="p0")
     b.add_argument("--sample", type=int, default=50)
     b.add_argument("--seed", type=int, default=20261113)
+    b.add_argument("--wikidata", action="store_true", help="Wikidata ile seçim ve eşleşme doğrulaması")
+    b.add_argument("--cache", default="data/wikidata-cache")
+    b.add_argument("--cutoff-years", type=int, default=100, help="P1435 yoksa en az bu kadar yıllık olmalı")
+    b.add_argument("--bbox", help="lat_min,lon_min,lat_max,lon_max: OSM'de olmayan statülü yapılar (QLever)")
     b.set_defaults(func=build)
     args = ap.parse_args()
     args.func(args)

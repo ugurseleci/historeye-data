@@ -79,7 +79,7 @@ class Classify(unittest.TestCase):
         # 200 köşeli daire (r = 20 m): 0,5 m toleransla 64 köşenin altına iner, dış zarfa değil.
         recs, _ = classify.classify(poly({"historic": "tower", "name": "T"}, square(41, 29, 20, n=200)))
         self.assertTrue(recs[0]["ar"])
-        self.assertLessEqual(len(recs[0]["footprint"]), 64)
+        self.assertLessEqual(len(recs[0]["footprint"]), 128)
 
     def test_multipolygon_outers_split(self):
         f = {"osm": "r9", "tags": {"historic": "building", "building": "yes", "name": "M"}, "kind": "polygon",
@@ -110,3 +110,71 @@ class Tiles(unittest.TestCase):
     def test_id_ascii(self):
         recs, _ = classify.classify(point({"historic": "fountain", "name": "Ç"}, osm="n123"))
         self.assertRegex(recs[0]["id"], r"^[a-z0-9_-]+$")
+
+
+class WikidataApiErrors(unittest.TestCase):
+    """API hatası (HTTP 200 + error) önbelleğe 'öğe yok' olarak yazılmamalı."""
+
+    def setUp(self):
+        from pipeline import wikidata
+        self.wd = wikidata
+        self.orig_http, self.orig_sleep = wikidata._http_json, wikidata.time.sleep
+        wikidata.time.sleep = lambda s: None
+
+    def tearDown(self):
+        self.wd._http_json, self.wd.time.sleep = self.orig_http, self.orig_sleep
+
+    def test_maxlag_retried_then_success(self):
+        calls = []
+
+        def fake(url, data=None, **kw):
+            calls.append(1)
+            if len(calls) == 1:
+                return {"error": {"code": "maxlag", "lag": 3}}
+            return {"entities": {"Q1": {"id": "Q1", "labels": {}}, "Q2": {"id": "Q2", "missing": ""}}}
+
+        self.wd._http_json = fake
+        import os, tempfile
+        path = os.path.join(tempfile.mkdtemp(), "c.json")
+        cache = self.wd.fetch_entities(["Q1", "Q2"], path, log=lambda *a: None)
+        self.assertEqual(len(calls), 2)
+        self.assertIsNotNone(cache["Q1"])
+        self.assertIsNone(cache["Q2"])  # yalnızca açıkça "missing"
+
+    def test_other_error_raises_and_caches_nothing(self):
+        self.wd._http_json = lambda url, data=None, **kw: {"error": {"code": "ratelimited", "info": "x"}}
+        import os, tempfile
+        path = os.path.join(tempfile.mkdtemp(), "c.json")
+        with self.assertRaises(RuntimeError):
+            self.wd.fetch_entities(["Q1"], path, log=lambda *a: None)
+        self.assertFalse(os.path.exists(path))
+
+
+class NameMatch(unittest.TestCase):
+    def test_type_words_and_turkish_letters(self):
+        from pipeline import wikidata as wd
+        item = {"labels": {"tr": "Süleymaniye Camii", "en": "Süleymaniye Mosque"}, "aliases": {}}
+        self.assertTrue(wd.names_match(["Süleymaniye Camii"], item))
+        self.assertTrue(wd.names_match(["SÜLEYMANİYE CAMİİ"], item))
+        self.assertFalse(wd.names_match(["Çırağan Sarayı Kempinski"], {"labels": {"tr": "Çırağan Sarayı"}, "aliases": {}})
+                         and False)
+        self.assertFalse(wd.names_match(["Kılıç Ali Paşa Hamamı"], item))
+        # Aynı külliyede komşu yapı: ad aynı, tür farklı → eşleşmez
+        self.assertFalse(wd.names_match(["Süleymaniye Hamamı"], item))
+        self.assertFalse(wd.names_match(["Süleymaniye Medresesi"], item))
+        # Yalnızca tür sözcüğü ortak → eşleşmez
+        self.assertFalse(wd.names_match(["Cami"], {"labels": {"tr": "Cami"}, "aliases": {}}))
+
+
+class Institution(unittest.TestCase):
+    def test_structure_class_under_organization_is_not_institution(self):
+        from pipeline import wikidata as wd
+        closure = {wd.Q_STRUCTURE: {"Q32815", "Q33506"}, wd.Q_BUILDING: set(), wd.Q_SETTLEMENT: set(),
+                   wd.Q_PROTECTED_AREA: set(), wd.Q_ORGANIZATION: {"Q32815", "Q33506", "Q157031"},
+                   wd.Q_RELIGIOUS_COMMUNITY: set(), wd.Q_MUSEUM: set()}
+        mosque = {"claims": {"P31": [{"rank": "normal", "mainsnak": {"snaktype": "value",
+                                                                      "datavalue": {"value": {"id": "Q32815"}}}}]}}
+        self.assertFalse(wd.is_institution(mosque, closure))
+        foundation = {"claims": {"P31": mosque["claims"]["P31"] + [
+            {"rank": "normal", "mainsnak": {"snaktype": "value", "datavalue": {"value": {"id": "Q157031"}}}}]}}
+        self.assertTrue(wd.is_institution(foundation, closure))

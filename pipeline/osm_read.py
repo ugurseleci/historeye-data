@@ -5,6 +5,10 @@ import osmium
 from .classify import historic_type
 
 
+def _wanted(tags):
+    return historic_type(tags) is not None or bool(tags.get("wikidata"))
+
+
 class _Handler(osmium.SimpleHandler):
     def __init__(self):
         super().__init__()
@@ -13,14 +17,14 @@ class _Handler(osmium.SimpleHandler):
 
     def node(self, n):
         tags = dict(n.tags)
-        if historic_type(tags) is None or not n.location.valid():
+        if not _wanted(tags) or not n.location.valid():
             return
         self.features.append({"osm": f"n{n.id}", "tags": tags, "kind": "point",
                               "point": (n.location.lat, n.location.lon)})
 
     def way(self, w):
         tags = dict(w.tags)
-        if historic_type(tags) is None or w.is_closed():
+        if not _wanted(tags) or w.is_closed():
             return  # kapalı yollar alan olarak gelir
         pts = [(nd.lat, nd.lon) for nd in w.nodes if nd.location.valid()]
         if len(pts) < 2:
@@ -30,7 +34,7 @@ class _Handler(osmium.SimpleHandler):
 
     def area(self, a):
         tags = dict(a.tags)
-        if historic_type(tags) is None:
+        if not _wanted(tags):
             return
         osm = f"w{a.orig_id()}" if a.from_way() else f"r{a.orig_id()}"
         outers = []

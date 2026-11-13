@@ -18,7 +18,11 @@ def _ll(p):
     return [e7(p[0]), e7(p[1])]
 
 
-def encode_record(rec):
+def _ref(ids, labels):
+    return [dict({"qid": q}, **labels.get(q, {})) for q in ids]
+
+
+def encode_record(rec, labels=None):
     """İç kayıt → karo kaydı (koordinatlar [enlem, boylam] 1e-7 derece tamsayı)."""
     out = {"id": rec["id"], "layer": rec["layer"], "ar": rec["ar"], "list": rec["list"],
            "type": rec["type"], "names": rec["names"], "priority": rec["priority"], "osm": rec["osm"],
@@ -29,9 +33,13 @@ def encode_record(rec):
         out["point"] = _ll(rec["point"])
         if "radius_m" in rec:
             out["radius_m"] = rec["radius_m"]
-    for k in ("height_m", "label_height_m", "qid", "heritage"):
+    labels = labels or {}
+    for k in ("height_m", "label_height_m", "qid", "heritage", "group_qid", "period", "image", "wiki"):
         if k in rec:
             out[k] = rec[k]
+    for k in ("architect", "style", "heritage_status"):
+        if k in rec:
+            out[k] = _ref(rec[k], labels)
     if rec["flags"]:
         out["flags"] = sorted(set(rec["flags"]))
     return out
@@ -55,7 +63,7 @@ def _put(out_dir, sub, data):
     return digest
 
 
-def build(records, out_dir, dataset_version):
+def build(records, out_dir, dataset_version, labels=None):
     """Kayıtları karolara yazar; karo, dizin ve manifest dosyalarını üretir. İstatistik döndürür."""
     by_tile = {}
     for rec in records:
@@ -66,7 +74,7 @@ def build(records, out_dir, dataset_version):
     for gh, recs in sorted(by_tile.items()):
         recs.sort(key=lambda r: r["id"])
         body = {"schema_version": DATASET_SCHEMA_VERSION, "dataset_version": dataset_version,
-                "geohash": gh, "dem": None, "records": [encode_record(r) for r in recs]}
+                "geohash": gh, "dem": None, "records": [encode_record(r, labels) for r in recs]}
         data = gzip_json(body)
         tile_hash[gh] = _put(out_dir, "tiles", data)
         tile_size[gh] = len(data)
