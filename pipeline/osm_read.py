@@ -51,3 +51,27 @@ def read(pbf_path):
     h = _Handler()
     h.apply_file(pbf_path, locations=True)
     return h.features
+
+
+class _Roads(osmium.SimpleHandler):
+    """Zemin kotu için yol noktaları: köprü, tünel ve katmanlı yollar hariç (zeminde olmayabilir)."""
+
+    def __init__(self):
+        super().__init__()
+        self.points = []
+
+    def way(self, w):
+        t = w.tags
+        if not t.get("highway") or t.get("bridge") not in (None, "no") or t.get("tunnel") not in (None, "no"):
+            return
+        if t.get("layer") not in (None, "0"):
+            return
+        for nd in w.nodes:
+            if nd.location.valid():
+                self.points.append((nd.lat, nd.lon))
+
+
+def read_roads(pbf_path):
+    h = _Roads()
+    h.apply_file(pbf_path, locations=True)
+    return h.points

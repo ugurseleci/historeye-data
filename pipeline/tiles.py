@@ -26,7 +26,7 @@ def encode_record(rec, labels=None):
     """İç kayıt → karo kaydı (koordinatlar [enlem, boylam] 1e-7 derece tamsayı)."""
     out = {"id": rec["id"], "layer": rec["layer"], "ar": rec["ar"], "list": rec["list"],
            "type": rec["type"], "names": rec["names"], "priority": rec["priority"], "osm": rec["osm"],
-           "ground_elev_m": None}
+           "ground_elev_m": rec.get("ground_elev_m")}
     if "footprint" in rec:
         out["footprint"] = [_ll(p) for p in rec["footprint"]]
     else:
@@ -63,7 +63,7 @@ def _put(out_dir, sub, data):
     return digest
 
 
-def build(records, out_dir, dataset_version, labels=None):
+def build(records, out_dir, dataset_version, labels=None, grids=None):
     """Kayıtları karolara yazar; karo, dizin ve manifest dosyalarını üretir. İstatistik döndürür."""
     by_tile = {}
     for rec in records:
@@ -74,7 +74,7 @@ def build(records, out_dir, dataset_version, labels=None):
     for gh, recs in sorted(by_tile.items()):
         recs.sort(key=lambda r: r["id"])
         body = {"schema_version": DATASET_SCHEMA_VERSION, "dataset_version": dataset_version,
-                "geohash": gh, "dem": None, "records": [encode_record(r, labels) for r in recs]}
+                "geohash": gh, "dem": (grids or {}).get(gh), "records": [encode_record(r, labels) for r in recs]}
         data = gzip_json(body)
         tile_hash[gh] = _put(out_dir, "tiles", data)
         tile_size[gh] = len(data)
