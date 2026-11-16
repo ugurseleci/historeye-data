@@ -1,0 +1,164 @@
+﻿bölge;id;ad;tür;şekil;alan_m2;yarıçap_m;osm_bağlantısı;doğru_bina_mı;not;otomatik_denetim;otomatik_ayrıntı
+Roma;osm-n6749258426;Primo;memorial;nokta;;1.5;https://www.openstreetmap.org/node/6749258426;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-n12791585969;Henryk Sienkiewicz;memorial;nokta;;1.5;https://www.openstreetmap.org/node/12791585969;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-w585987218;Gruppo XI;tomb;poligon;341.9;;https://www.openstreetmap.org/way/585987218;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-n3154799949;Sant'Ambrogio;memorial;nokta;;1.5;https://www.openstreetmap.org/node/3154799949;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-r9909127-1;Capitol Müzesi;yes;poligon;6199.2;;https://www.openstreetmap.org/relation/9909127;;;tutarlı;tr.wikipedia koordinatı 0 m
+Roma;osm-w97834048;Acquedotto Julio;aqueduct;poligon;86.3;;https://www.openstreetmap.org/way/97834048;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-w222637189;Villa di via Michelangelo Tilli;yes;poligon;427.5;;https://www.openstreetmap.org/way/222637189;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-w923957691;Monteverde;tomb;poligon;26.0;;https://www.openstreetmap.org/way/923957691;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-n1253221573;Madonna Della Pietà;wayside_shrine;nokta;;1.5;https://www.openstreetmap.org/node/1253221573;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-w128244544;San Tommaso in Parione Kilisesi;church;poligon;252.7;;https://www.openstreetmap.org/way/128244544;;;tutarlı;en.wikipedia koordinatı 0 m
+Roma;osm-n2514765568;Romualdo di Camaldoli;memorial;nokta;;1.5;https://www.openstreetmap.org/node/2514765568;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-w140536414;Mausoleo Circolare VIII miglio;ruins;poligon;593.7;;https://www.openstreetmap.org/way/140536414;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-n3837119775;Monumento di Taras Shevchenko;memorial;nokta;;1.5;https://www.openstreetmap.org/node/3837119775;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-n2514765601;Benigno di Digione;memorial;nokta;;1.5;https://www.openstreetmap.org/node/2514765601;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-n2514765546;Gaetano Thiene;memorial;nokta;;1.5;https://www.openstreetmap.org/node/2514765546;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-w112795345;Dioscuri Çeşmesi;yes;poligon;83.4;;https://www.openstreetmap.org/way/112795345;;;tutarlı;en.wikipedia koordinatı 5 m
+Roma;osm-n2514765550;Papa Clemente I;memorial;nokta;;1.5;https://www.openstreetmap.org/node/2514765550;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-w164210118;Torre Molinario;ruins;poligon;21.5;;https://www.openstreetmap.org/way/164210118;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-n2514765616;Domenico di Guzmán;memorial;nokta;;1.5;https://www.openstreetmap.org/node/2514765616;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-w202879042;San Tommaso in Formis Kilisesi;church;poligon;199.9;;https://www.openstreetmap.org/way/202879042;;;tutarlı;en.wikipedia koordinatı 40 m
+Roma;osm-r2766784;Abbazia delle Tre Fontane;building;poligon;3936.6;;https://www.openstreetmap.org/relation/2766784;;;tutarlı;en.wikipedia koordinatı 13 m
+Roma;osm-n1334058151;San Giuseppe;wayside_shrine;nokta;;1.5;https://www.openstreetmap.org/node/1334058151;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-r2739193;Porta Pia;monument;poligon;897.1;;https://www.openstreetmap.org/relation/2739193;;;tutarlı;en.wikipedia koordinatı 0 m
+Roma;osm-w781857870;Aqueduct of Claudius;aqueduct;poligon;252.0;;https://www.openstreetmap.org/way/781857870;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-w135189103;San Pancrazio Bazilikası;church;poligon;1624.6;;https://www.openstreetmap.org/way/135189103;;;tutarlı;en.wikipedia koordinatı 0 m
+Roma;osm-n12791582990;Ivan Vazov;memorial;nokta;;1.5;https://www.openstreetmap.org/node/12791582990;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-w23840659;Sant'Ignazio di Loyola in Campo Marzio Kilisesi;church;poligon;3876.8;;https://www.openstreetmap.org/way/23840659;;;tutarlı;en.wikipedia koordinatı 0 m
+Roma;osm-w26840361;Gazometro;gasometer;poligon;3036.8;;https://www.openstreetmap.org/way/26840361;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-w367010366;Loculi speciali muro di cinta semenzaio;tomb;poligon;32.9;;https://www.openstreetmap.org/way/367010366;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-w637313789;Mausoleo Mutilati e Invalidi di Guerra sezione di Roma;monument;poligon;389.2;;https://www.openstreetmap.org/way/637313789;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-w284851267;Pallavicini-Rospigliosi Sarayı;yes;poligon;12032.1;;https://www.openstreetmap.org/way/284851267;;;tutarlı;en.wikipedia koordinatı 0 m
+Roma;osm-r2766758;Koch Sarayı;building;poligon;11185.8;;https://www.openstreetmap.org/relation/2766758;;;tutarlı;en.wikipedia koordinatı 0 m
+Roma;osm-w1361015457;Sant'Anna a Tor Tre Teste Kilisesi;church;poligon;36.8;;https://www.openstreetmap.org/way/1361015457;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-w337871342;San Marone Kilisesi;church;poligon;230.2;;https://www.openstreetmap.org/way/337871342;;;tutarlı;en.wikipedia koordinatı 0 m
+Roma;osm-w125831664;San Giuliano dei Fiamminghi Kilisesi;church;poligon;385.9;;https://www.openstreetmap.org/way/125831664;;;tutarlı;en.wikipedia koordinatı 0 m
+Roma;osm-r19344079;Ospedale Pediatrico Bambino Gesù;yes;poligon;14817.6;;https://www.openstreetmap.org/relation/19344079;;;tutarlı;en.wikipedia koordinatı 0 m
+Roma;osm-w52332687;Quattro Fiumi Çeşmesi;yes;poligon;239.0;;https://www.openstreetmap.org/way/52332687;;;tutarlı;en.wikipedia koordinatı 0 m
+Roma;osm-n2514765545;Papa Marcello I;memorial;nokta;;1.5;https://www.openstreetmap.org/node/2514765545;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-w131564482;Santa Maria Maggiore Bazilikası;church;poligon;7052.9;;https://www.openstreetmap.org/way/131564482;;;tutarlı;en.wikipedia koordinatı 0 m
+Roma;osm-w60616315;Santa Maria in Via Kilisesi;church;poligon;801.1;;https://www.openstreetmap.org/way/60616315;;;tutarlı;en.wikipedia koordinatı 0 m
+Roma;osm-w385275277;Ossario Comune;tomb;poligon;2199.4;;https://www.openstreetmap.org/way/385275277;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-w113800553;Santi Michele e Magno Kilisesi;church;poligon;558.4;;https://www.openstreetmap.org/way/113800553;;;tutarlı;en.wikipedia koordinatı 0 m
+Roma;osm-r530319;Convento di Santa Dorotea;monastery;poligon;4035.4;;https://www.openstreetmap.org/relation/530319;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-w284756250;Fontanile di Pio IX;ruins;poligon;56.9;;https://www.openstreetmap.org/way/284756250;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-w360063338;San Giuseppe a via Nomentana Kilisesi;church;poligon;804.5;;https://www.openstreetmap.org/way/360063338;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-r2289084;San Tommaso ai Cenci Kilisesi;church;poligon;192.0;;https://www.openstreetmap.org/relation/2289084;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-n4758761431;Babuino;yes;nokta;;3.0;https://www.openstreetmap.org/node/4758761431;;;şüpheli;"en.wikipedia koordinatı 112 m · OSM ile Wikidata ≤ 35 m uyuşuyor; Wikipedia koordinatı kaba (büyük olasılıkla doğru, elle bakılmalı)"
+Roma;osm-w52334111;Santa Maria dell'Anima Kilisesi;church;poligon;742.7;;https://www.openstreetmap.org/way/52334111;;;tutarlı;en.wikipedia koordinatı 0 m
+Roma;osm-n6746577489;San Dydimus;memorial;nokta;;1.5;https://www.openstreetmap.org/node/6746577489;;;doğrulanamadı;bağımsız kaynak yok
+Roma;osm-w847322487;Scaglione L;tomb;poligon;282.8;;https://www.openstreetmap.org/way/847322487;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-r18898518-2;Palácio Condes de Caria;castle;poligon;445.0;;https://www.openstreetmap.org/relation/18898518;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-n2475211343;Engenharia;memorial;nokta;;1.5;https://www.openstreetmap.org/node/2475211343;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-r10584836;Palhavã Sarayı;castle;poligon;2135.5;;https://www.openstreetmap.org/relation/10584836;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-w214710738;Complexo Desportivo Municipal do Casal Vistoso;yes;poligon;7248.5;;https://www.openstreetmap.org/way/214710738;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-w96494653;Casa do Ferreira das Tabuletas;building;poligon;273.3;;https://www.openstreetmap.org/way/96494653;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-n13368143209;Nossa Senhora de Fátima;wayside_shrine;nokta;;1.5;https://www.openstreetmap.org/node/13368143209;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-w420322806;Forte do Alto do Duque;castle;poligon;1766.2;;https://www.openstreetmap.org/way/420322806;;;tutarlı;en.wikipedia koordinatı 0 m
+Lizbon;osm-n5457851232;Luís Vaz de Camões;memorial;nokta;;1.5;https://www.openstreetmap.org/node/5457851232;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-w587667181;Fonte do Neptuno;fountain;poligon;208.7;;https://www.openstreetmap.org/way/587667181;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-r11050205-1;Solar da Quinta dos Lagares d'El-Rei;castle;poligon;701.8;;https://www.openstreetmap.org/relation/11050205;;;tutarlı;en.wikipedia koordinatı 25 m
+Lizbon;osm-n5457851338;Duarte Pacheco;memorial;nokta;;1.5;https://www.openstreetmap.org/node/5457851338;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-n5457844765;Machado de Assis;memorial;nokta;;1.5;https://www.openstreetmap.org/node/5457844765;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-w242731077;Associação Nacional das Farmácias;castle;poligon;834.7;;https://www.openstreetmap.org/way/242731077;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-n5457844782;Salto em Altura;memorial;nokta;;1.5;https://www.openstreetmap.org/node/5457844782;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-w663318739;Dom José I;memorial;poligon;114.2;;https://www.openstreetmap.org/way/663318739;;;tutarlı;en.wikipedia koordinatı 0 m
+Lizbon;osm-n5457851378;D. Manuel I;memorial;nokta;;1.5;https://www.openstreetmap.org/node/5457851378;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-w96192097;Palacete Nunes Correia;castle;poligon;779.6;;https://www.openstreetmap.org/way/96192097;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-w139996884;Palácio da Cruz Quebrada;castle;poligon;505.6;;https://www.openstreetmap.org/way/139996884;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-n4862612326;Chopin;memorial;nokta;;1.5;https://www.openstreetmap.org/node/4862612326;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-w1342511734;Capela dos Castros;chapel;poligon;278.1;;https://www.openstreetmap.org/way/1342511734;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-w552199591;São José Kilisesi;church;poligon;908.0;;https://www.openstreetmap.org/way/552199591;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-n1801821472;Júlio de Castilho;memorial;nokta;;1.5;https://www.openstreetmap.org/node/1801821472;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-w96715412;Palmela Sarayı;castle;poligon;652.1;;https://www.openstreetmap.org/way/96715412;;;tutarlı;en.wikipedia koordinatı 0 m
+Lizbon;osm-w97482202;Picadeiro do Antigo Colégio dos Nobres;building;poligon;1291.5;;https://www.openstreetmap.org/way/97482202;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-w97735452;Centeno Sarayı;castle;poligon;215.4;;https://www.openstreetmap.org/way/97735452;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-w1382432568;São Jorge Kalesi;castle;poligon;4841.7;;https://www.openstreetmap.org/way/1382432568;;;tutarlı;en.wikipedia koordinatı 0 m
+Lizbon;osm-w579539783;Jardim das Damas;yes;poligon;3209.1;;https://www.openstreetmap.org/way/579539783;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-w98544533;Heritage Avenida Liberdade;building;poligon;327.5;;https://www.openstreetmap.org/way/98544533;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-w335962188;São Bartolomeu da Charneca Kilisesi;yes;poligon;655.4;;https://www.openstreetmap.org/way/335962188;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-w1059899776;Auto-Palace;building;poligon;1762.5;;https://www.openstreetmap.org/way/1059899776;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-n5457844756;Conde de Sabugosa;memorial;nokta;;1.5;https://www.openstreetmap.org/node/5457844756;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-w494432857;Palácio Vale-Flor;castle;poligon;1274.8;;https://www.openstreetmap.org/way/494432857;;;doğrulanamadı;Wikipedia maddesinde koordinat yok
+Lizbon;osm-w243147267;São José dos Carpinteiros Kilisesi;church;poligon;243.9;;https://www.openstreetmap.org/way/243147267;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-w151889301;Jardim da Praça de Londres;yes;poligon;2982.7;;https://www.openstreetmap.org/way/151889301;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-w97694753;Palácio Galveias;castle;poligon;1154.4;;https://www.openstreetmap.org/way/97694753;;;tutarlı;en.wikipedia koordinatı 0 m
+Lizbon;osm-w1276081397;Escola Secundária Maria Amália Vaz de Carvalho;yes;poligon;12991.8;;https://www.openstreetmap.org/way/1276081397;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-r11050205-3;Solar da Quinta dos Lagares d'El-Rei;castle;poligon;518.3;;https://www.openstreetmap.org/relation/11050205;;;tutarlı;en.wikipedia koordinatı 0 m
+Lizbon;osm-r16070004;Jazigo da Família Mantero;tomb;poligon;22.7;;https://www.openstreetmap.org/relation/16070004;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-n5457851254;Actor Taborda;memorial;nokta;;1.5;https://www.openstreetmap.org/node/5457851254;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-w196359200;Justiça Sarayı;building;poligon;4249.8;;https://www.openstreetmap.org/way/196359200;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-w476772485;Chafariz da Mãe d'Água;fountain;poligon;234.1;;https://www.openstreetmap.org/way/476772485;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-w1151227079;Conde de Burnay;tomb;poligon;20.8;;https://www.openstreetmap.org/way/1151227079;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-w24341353;Belém Kulesi;fort;poligon;904.4;;https://www.openstreetmap.org/way/24341353;;;tutarlı;en.wikipedia koordinatı 5 m
+Lizbon;osm-w144016382;Palácio Anjos;chalet;poligon;1184.4;;https://www.openstreetmap.org/way/144016382;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-w588187295;Lavadouro Público Municipal;wash_house;poligon;107.2;;https://www.openstreetmap.org/way/588187295;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-n5457844778;Mengs;memorial;nokta;;1.5;https://www.openstreetmap.org/node/5457844778;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-w588161349;Lavadouro Público Municipal;wash_house;poligon;75.3;;https://www.openstreetmap.org/way/588161349;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-w386666428;Capela da Nossa Senhora do Monte do Carmo;yes;poligon;152.0;;https://www.openstreetmap.org/way/386666428;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-w96783126;Heron Castilho;building;poligon;888.2;;https://www.openstreetmap.org/way/96783126;;;doğrulanamadı;bağımsız kaynak yok
+Lizbon;osm-w272456332;Verride Palácio de Santa Catarina;castle;poligon;715.5;;https://www.openstreetmap.org/way/272456332;;;tutarlı;en.wikipedia koordinatı 0 m
+Oslo;osm-w111833904;Blykjelleren;yes;poligon;109.6;;https://www.openstreetmap.org/way/111833904;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-n2792030989;Hans Nielsen Hauge 1771-1824;memorial;nokta;;1.5;https://www.openstreetmap.org/node/2792030989;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-w1030902625;Menighetshus;yes;poligon;245.9;;https://www.openstreetmap.org/way/1030902625;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-w198381394;Bygg 22;yes;poligon;225.9;;https://www.openstreetmap.org/way/198381394;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-n12015857321;Johan Scharffenberg 1869 - 1965;memorial;nokta;;1.5;https://www.openstreetmap.org/node/12015857321;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-w43222619;Ullevaal Stadion;yes;poligon;27074.7;;https://www.openstreetmap.org/way/43222619;;;tutarlı;en.wikipedia koordinatı 0 m
+Oslo;osm-n7575098574;Johan Herman Wessel;memorial;nokta;;1.5;https://www.openstreetmap.org/node/7575098574;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-w54830274;Festningens gymnastikksal;yes;poligon;1242.5;;https://www.openstreetmap.org/way/54830274;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-w1031550762;Villa Paus;castle;poligon;302.7;;https://www.openstreetmap.org/way/1031550762;;;tutarlı;en.wikipedia koordinatı 6 m
+Oslo;osm-r13931033;Byens Andre Rådhus;yes;poligon;651.1;;https://www.openstreetmap.org/relation/13931033;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-n5966276762;Otto Ruge;memorial;nokta;;1.5;https://www.openstreetmap.org/node/5966276762;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-w27011867;Lids hus;yes;poligon;689.5;;https://www.openstreetmap.org/way/27011867;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-n7329043476;Grete Waitz;memorial;nokta;;1.5;https://www.openstreetmap.org/node/7329043476;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-w66335645;Bygg 20;yes;poligon;996.5;;https://www.openstreetmap.org/way/66335645;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-r15093128;Skolebygningen;yes;poligon;785.2;;https://www.openstreetmap.org/relation/15093128;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-w909527032;Fransiskushjelpen;yes;poligon;323.1;;https://www.openstreetmap.org/way/909527032;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-w134403997;Villa Grande;yes;poligon;1286.6;;https://www.openstreetmap.org/way/134403997;;;tutarlı;en.wikipedia koordinatı 0 m
+Oslo;osm-n3708299516;Halfdan Kjerulf;memorial;nokta;;1.5;https://www.openstreetmap.org/node/3708299516;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-w133318097;Frogner hovedgård;yes;poligon;636.3;;https://www.openstreetmap.org/way/133318097;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-w5011980;Vilhelm Bjerknes' hus;yes;poligon;1956.4;;https://www.openstreetmap.org/way/5011980;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-n1664967201;P. A. Munch;memorial;nokta;;1.5;https://www.openstreetmap.org/node/1664967201;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-w133801633;Handwerk Botaniske;yes;poligon;189.1;;https://www.openstreetmap.org/way/133801633;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-w5046575;Gressbanen;yes;poligon;7209.0;;https://www.openstreetmap.org/way/5046575;;;tutarlı;en.wikipedia koordinatı 0 m
+Oslo;osm-w35813882;Skreddergården;yes;poligon;303.9;;https://www.openstreetmap.org/way/35813882;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-w115277922;Bislet Bad & Trening;yes;poligon;984.1;;https://www.openstreetmap.org/way/115277922;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-w5011962;Villa Eika;building;poligon;297.9;;https://www.openstreetmap.org/way/5011962;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-w27011869;Tøyen hovedgård;yes;poligon;427.9;;https://www.openstreetmap.org/way/27011869;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-w140773057;Flisberget 2;yes;poligon;48.2;;https://www.openstreetmap.org/way/140773057;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-w116409744;Kunstnernes hus;building;poligon;959.7;;https://www.openstreetmap.org/way/116409744;;;tutarlı;en.wikipedia koordinatı 11 m
+Oslo;osm-w103980348;Hasle kirke;church;poligon;640.9;;https://www.openstreetmap.org/way/103980348;;;tutarlı;en.wikipedia koordinatı 0 m
+Oslo;osm-w111695464;Grotten;yes;poligon;241.0;;https://www.openstreetmap.org/way/111695464;;;tutarlı;en.wikipedia koordinatı 7 m
+Oslo;osm-n7596280505;Jørgen Herman Vogt 1784-1862;memorial;nokta;;1.5;https://www.openstreetmap.org/node/7596280505;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-w178994474;Oppsal kirke;church;poligon;919.7;;https://www.openstreetmap.org/way/178994474;;;tutarlı;en.wikipedia koordinatı 0 m
+Oslo;osm-w49139394;Villa Smedbråten;yes;poligon;507.3;;https://www.openstreetmap.org/way/49139394;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-w115661777;Bygg 47;yes;poligon;705.7;;https://www.openstreetmap.org/way/115661777;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-w28005775;Chateau Neuf;yes;poligon;1541.5;;https://www.openstreetmap.org/way/28005775;;;doğrulanamadı;Wikipedia maddesinde koordinat yok
+Oslo;osm-w135686535;Bygg B5;yes;poligon;218.3;;https://www.openstreetmap.org/way/135686535;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-w575889280;Bryn telefonsentral;yes;poligon;712.6;;https://www.openstreetmap.org/way/575889280;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-n7249306985;Johannes Brun;memorial;nokta;;1.5;https://www.openstreetmap.org/node/7249306985;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-w557799194;Frogner kirke;yes;poligon;1114.8;;https://www.openstreetmap.org/way/557799194;;;tutarlı;en.wikipedia koordinatı 0 m
+Oslo;osm-w381743815;Bentsebrua;bridge;poligon;439.1;;https://www.openstreetmap.org/way/381743815;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-w32447891;Trefoldighetskirken;yes;poligon;1358.5;;https://www.openstreetmap.org/way/32447891;;;tutarlı;en.wikipedia koordinatı 4 m
+Oslo;osm-w161661199;Gol stavkirke;church;poligon;137.1;;https://www.openstreetmap.org/way/161661199;;;tutarlı;en.wikipedia koordinatı 0 m
+Oslo;osm-w65000322;Grefsen Vandcuuranstalt;yes;poligon;404.0;;https://www.openstreetmap.org/way/65000322;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-w43222623;Bygg 7;yes;poligon;460.2;;https://www.openstreetmap.org/way/43222623;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-r13943078;Gymnastikkbygningen;yes;poligon;705.8;;https://www.openstreetmap.org/relation/13943078;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-w118089563;Bakkehaugen kirke;yes;poligon;558.3;;https://www.openstreetmap.org/way/118089563;;;tutarlı;en.wikipedia koordinatı 0 m
+Oslo;osm-w115901265;Ekebergrestauranten;yes;poligon;636.8;;https://www.openstreetmap.org/way/115901265;;;tutarlı;en.wikipedia koordinatı 1 m
+Oslo;osm-n3708299512;Adolph Tidemand;memorial;nokta;;1.5;https://www.openstreetmap.org/node/3708299512;;;doğrulanamadı;bağımsız kaynak yok
+Oslo;osm-n10974266334;George C. Marshall;memorial;nokta;;1.5;https://www.openstreetmap.org/node/10974266334;;;doğrulanamadı;bağımsız kaynak yok
+Kapadokya;osm-n10604191025;Hakkı Atamulu;memorial;nokta;;1.5;https://www.openstreetmap.org/node/10604191025;;;doğrulanamadı;bağımsız kaynak yok
+Kapadokya;osm-n10604191023;Kara Vezir Seyid Mehmet Paşa;memorial;nokta;;1.5;https://www.openstreetmap.org/node/10604191023;;;doğrulanamadı;bağımsız kaynak yok
+Kapadokya;osm-w96871117;Dutlu Camii;building;poligon;254.7;;https://www.openstreetmap.org/way/96871117;;;doğrulanamadı;bağımsız kaynak yok
+Kapadokya;osm-n10610615142;HACI BEKTAŞ VELİ;memorial;nokta;;1.5;https://www.openstreetmap.org/node/10610615142;;;doğrulanamadı;bağımsız kaynak yok
+Kapadokya;osm-w492643645;Nevşehir Kalesi;castle;poligon;1597.2;;https://www.openstreetmap.org/way/492643645;;;şüpheli;"en.wikipedia koordinatı 704 m · OSM ile Wikidata ≤ 35 m uyuşuyor; Wikipedia koordinatı kaba (büyük olasılıkla doğru, elle bakılmalı)"
+Kapadokya;osm-r9594233;İbrahim Paşa Külliyesi;building;poligon;920.6;;https://www.openstreetmap.org/relation/9594233;;;doğrulanamadı;bağımsız kaynak yok
+Kapadokya;osm-w133420556;Altıkapı Türbesi;memorial;poligon;49.1;;https://www.openstreetmap.org/way/133420556;;;doğrulanamadı;bağımsız kaynak yok
+Kapadokya;osm-n10610615141;Neşet Günal;memorial;nokta;;1.5;https://www.openstreetmap.org/node/10610615141;;;doğrulanamadı;bağımsız kaynak yok
+Kapadokya;osm-n10604191024;Nevşehirli Damat İbrahim Paşa;memorial;nokta;;1.5;https://www.openstreetmap.org/node/10604191024;;;doğrulanamadı;bağımsız kaynak yok
+Kapadokya;osm-r7655709;Sarıhan Kervansarayı;caravanserai;poligon;2164.1;;https://www.openstreetmap.org/relation/7655709;;;tutarlı;tr.wikipedia koordinatı 12 m
+Kapadokya;osm-n10604191026;Ürgüplü Refik Başaran;memorial;nokta;;1.5;https://www.openstreetmap.org/node/10604191026;;;doğrulanamadı;bağımsız kaynak yok
+Kapadokya;osm-w1475217099;Ürgüp Kurtuluş Camii;building;poligon;189.5;;https://www.openstreetmap.org/way/1475217099;;;doğrulanamadı;bağımsız kaynak yok
+Kapadokya;osm-w253077394;Çavuşin Kalesi;castle;poligon;828.5;;https://www.openstreetmap.org/way/253077394;;;doğrulanamadı;bağımsız kaynak yok

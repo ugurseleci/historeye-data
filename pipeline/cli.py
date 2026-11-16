@@ -9,6 +9,7 @@ import random
 import statistics
 
 from . import classify, enrich, osm_read, tiles
+from .geohash import encode as gh_encode
 from . import wikidata as wd
 from .geohash import bbox, encode
 
@@ -63,6 +64,11 @@ def build(args):
                 closure, enrich.cutoff(args.cutoff_years))
             records.extend(extra)
             match_stats = dict(match_stats, wikidata_only=len(extra))
+        if args.commons:
+            from . import commons
+            files = {r["image"]["file"] for r in records if r.get("image")}
+            ccache = commons.fetch(files, os.path.join(args.cache, "commons.json"))
+            match_stats = dict(match_stats, images=commons.apply(records, ccache))
         lab = wd.fetch_entities(ref_ids, os.path.join(args.cache, "labels.json"), props="labels")
         labels = {q: {k: v for k, v in (lab.get(q) or {}).get("labels", {}).items() if k in ("tr", "en")}
                   for q in ref_ids}
@@ -84,7 +90,25 @@ def build(args):
     records = unique
 
     os.makedirs(args.out, exist_ok=True)
-    stats = tiles.build(records, args.out, args.version, labels)
+    grids, dem_stats = {}, {}
+    if args.roads:
+        from . import dem as dem_mod
+        roads = dem_mod.road_pixels(osm_read.read_roads(args.roads))
+        dem = dem_mod.Dem()
+        by_tile = collections.defaultdict(list)
+        for r in records:
+            by_tile[gh_encode(r["rep"][0], r["rep"][1], tiles.TILE_PRECISION)].append(r)
+        road_share = []
+        for gh, recs in sorted(by_tile.items()):
+            grid, share = dem_mod.ground_grid(dem, gh, roads, cells=args.dem_cells)
+            grids[gh] = grid
+            road_share.append(share)
+            values = dem_mod.decode_grid(grid)
+            for r in recs:
+                r["ground_elev_m"] = dem_mod.record_ground(grid, r, values)
+        dem_stats = {"tiles": len(grids), "cells": args.dem_cells, "road_node_share_p50":
+                     round(sorted(road_share)[len(road_share) // 2], 2) if road_share else None}
+    stats = tiles.build(records, args.out, args.version, labels, grids)
     sizes = list(stats["tile_size"].values())
     counts = list(stats["tile_count"].values())
     flags = collections.Counter(fl for r in records for fl in r["flags"])
@@ -104,6 +128,7 @@ def build(args):
         "by_type_top": {f"{t}/{k}": n for (t, k), n in by_type.most_common(25)},
         "with_wikidata_tag": sum("qid" in r for r in records),
         "wikidata_match": match_stats,
+        "dem": dem_stats,
         "with_period": sum("period" in r for r in records),
         "with_architect": sum("architect" in r for r in records),
         "with_image": sum("image" in r for r in records),
@@ -160,6 +185,9 @@ def main():
     b.add_argument("--wikidata", action="store_true", help="Wikidata ile seçim ve eşleşme doğrulaması")
     b.add_argument("--cache", default="data/wikidata-cache")
     b.add_argument("--cutoff-years", type=int, default=100, help="P1435 yoksa en az bu kadar yıllık olmalı")
+    b.add_argument("--commons", action="store_true", help="görsel lisans ve atıf bilgisi (Commons API)")
+    b.add_argument("--roads", help="yol ağı PBF'i (osmium tags-filter w/highway): zemin kotu ızgarası üretir")
+    b.add_argument("--dem-cells", type=int, default=32, help="karo kenarı başına ızgara hücresi")
     b.add_argument("--bbox", help="lat_min,lon_min,lat_max,lon_max: OSM'de olmayan statülü yapılar (QLever)")
     b.set_defaults(func=build)
     args = ap.parse_args()

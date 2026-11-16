@@ -192,3 +192,66 @@ class AuditProtection(unittest.TestCase):
         with open(p, "w", encoding="utf-8") as fh:
             fh.write("id;ad;doğru_bina_mı;not\nosm-w1;X;DOĞRU;\n")  # Türkçe Excel: noktalı virgül
         self.assertTrue(cli._has_answers(p))
+
+
+class Dem(unittest.TestCase):
+    def test_encode_decode_and_bilinear(self):
+        import numpy as np
+        from pipeline import dem
+        v = np.array([[10.0, 20.0], [30.0, 40.0]])
+        g = dem.encode_grid(v, 41.0, 29.0, 0.01, 0.01)
+        self.assertEqual(g["base_m"], 10)
+        self.assertTrue(np.allclose(dem.decode_grid(g), v))
+        self.assertAlmostEqual(dem.sample(g, 41.005, 29.005), 25.0)
+        self.assertAlmostEqual(dem.sample(g, 41.0, 29.0), 10.0)
+        self.assertAlmostEqual(dem.sample(g, 41.01, 29.01), 40.0)
+
+    def test_negative_and_high_elevations(self):
+        import numpy as np
+        from pipeline import dem
+        v = np.array([[-3.2, 0.0], [3500.5, 4805.7]])  # deniz altı ve yüksek rakım (int16 taşmaz)
+        g = dem.encode_grid(v, 0, 0, 1, 1)
+        self.assertTrue(np.allclose(dem.decode_grid(g), v, atol=0.05))
+
+    def test_record_ground_is_lowest(self):
+        import numpy as np
+        from pipeline import dem
+        v = np.array([[0.0, 0.0], [20.0, 20.0]])  # kuzeye doğru yokuş
+        g = dem.encode_grid(v, 41.0, 29.0, 0.01, 0.01)
+        rec = {"footprint": [(41.002, 29.002), (41.002, 29.004), (41.006, 29.004), (41.006, 29.002)],
+               "rep": (41.004, 29.003)}
+        self.assertAlmostEqual(dem.record_ground(g, rec), 4.0)  # alt kenar
+
+    def test_tile_name(self):
+        from pipeline import dem
+        self.assertEqual(dem.tile_name(41, 29), "Copernicus_DSM_COG_10_N41_00_E029_00_DEM")
+        self.assertEqual(dem.tile_name(-23, -47), "Copernicus_DSM_COG_10_S23_00_W047_00_DEM")
+
+
+class CommonsLicense(unittest.TestCase):
+    def info(self, **kw):
+        base = {"w": 640, "h": 480, "license": "CC BY-SA 4.0", "license_url": "u", "author": "Ali Veli",
+                "attribution_required": True, "non_free": False, "restrictions": "", "usage_terms": ""}
+        base.update(kw)
+        return base
+
+    def test_accept_and_reject(self):
+        from pipeline import commons
+        self.assertEqual(commons.decide(self.info()), (True, None))
+        self.assertEqual(commons.decide(self.info(license="CC BY 2.0")), (True, None))
+        self.assertEqual(commons.decide(self.info(license="Public domain", author="")), (True, None))
+        self.assertEqual(commons.decide(self.info(license="CC0", author="")), (True, None))
+        self.assertEqual(commons.decide(self.info(author="")), (False, "no_attribution"))
+        self.assertEqual(commons.decide(self.info(non_free=True)), (False, "non_free"))
+        self.assertEqual(commons.decide(self.info(license="Fair use")), (False, "non_free"))
+        self.assertEqual(commons.decide(self.info(license="GFDL")), (False, "license_unknown"))
+        self.assertEqual(commons.decide(self.info(license="FAL")), (True, None))
+        self.assertEqual(commons.decide(self.info(license="FAL", author="")), (False, "no_attribution"))
+        self.assertEqual(commons.decide(self.info(license="Attribution")), (True, None))
+        self.assertEqual(commons.decide(self.info(license="No restrictions")), (False, "license_unknown"))
+        self.assertEqual(commons.decide(self.info(restrictions="personality rights")), (False, "personality_rights"))
+        self.assertEqual(commons.decide(None), (False, "file_missing"))
+
+    def test_html_stripped(self):
+        from pipeline import commons
+        self.assertEqual(commons._strip_html('<a href="x">Ali&nbsp;Veli</a>'), "Ali Veli")

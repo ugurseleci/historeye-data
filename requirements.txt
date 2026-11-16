@@ -1,2 +1,4 @@
 osmium==4.3.2
 shapely==2.2.0
+numpy==2.5.4
+rasterio==1.5.2
