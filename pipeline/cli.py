@@ -64,6 +64,11 @@ def build(args):
                 closure, enrich.cutoff(args.cutoff_years))
             records.extend(extra)
             match_stats = dict(match_stats, wikidata_only=len(extra))
+        if args.commons:
+            from . import commons
+            files = {r["image"]["file"] for r in records if r.get("image")}
+            ccache = commons.fetch(files, os.path.join(args.cache, "commons.json"))
+            match_stats = dict(match_stats, images=commons.apply(records, ccache))
         lab = wd.fetch_entities(ref_ids, os.path.join(args.cache, "labels.json"), props="labels")
         labels = {q: {k: v for k, v in (lab.get(q) or {}).get("labels", {}).items() if k in ("tr", "en")}
                   for q in ref_ids}
@@ -180,6 +185,7 @@ def main():
     b.add_argument("--wikidata", action="store_true", help="Wikidata ile seçim ve eşleşme doğrulaması")
     b.add_argument("--cache", default="data/wikidata-cache")
     b.add_argument("--cutoff-years", type=int, default=100, help="P1435 yoksa en az bu kadar yıllık olmalı")
+    b.add_argument("--commons", action="store_true", help="görsel lisans ve atıf bilgisi (Commons API)")
     b.add_argument("--roads", help="yol ağı PBF'i (osmium tags-filter w/highway): zemin kotu ızgarası üretir")
     b.add_argument("--dem-cells", type=int, default=32, help="karo kenarı başına ızgara hücresi")
     b.add_argument("--bbox", help="lat_min,lon_min,lat_max,lon_max: OSM'de olmayan statülü yapılar (QLever)")

@@ -226,3 +226,32 @@ class Dem(unittest.TestCase):
         from pipeline import dem
         self.assertEqual(dem.tile_name(41, 29), "Copernicus_DSM_COG_10_N41_00_E029_00_DEM")
         self.assertEqual(dem.tile_name(-23, -47), "Copernicus_DSM_COG_10_S23_00_W047_00_DEM")
+
+
+class CommonsLicense(unittest.TestCase):
+    def info(self, **kw):
+        base = {"w": 640, "h": 480, "license": "CC BY-SA 4.0", "license_url": "u", "author": "Ali Veli",
+                "attribution_required": True, "non_free": False, "restrictions": "", "usage_terms": ""}
+        base.update(kw)
+        return base
+
+    def test_accept_and_reject(self):
+        from pipeline import commons
+        self.assertEqual(commons.decide(self.info()), (True, None))
+        self.assertEqual(commons.decide(self.info(license="CC BY 2.0")), (True, None))
+        self.assertEqual(commons.decide(self.info(license="Public domain", author="")), (True, None))
+        self.assertEqual(commons.decide(self.info(license="CC0", author="")), (True, None))
+        self.assertEqual(commons.decide(self.info(author="")), (False, "no_attribution"))
+        self.assertEqual(commons.decide(self.info(non_free=True)), (False, "non_free"))
+        self.assertEqual(commons.decide(self.info(license="Fair use")), (False, "non_free"))
+        self.assertEqual(commons.decide(self.info(license="GFDL")), (False, "license_unknown"))
+        self.assertEqual(commons.decide(self.info(license="FAL")), (True, None))
+        self.assertEqual(commons.decide(self.info(license="FAL", author="")), (False, "no_attribution"))
+        self.assertEqual(commons.decide(self.info(license="Attribution")), (True, None))
+        self.assertEqual(commons.decide(self.info(license="No restrictions")), (False, "license_unknown"))
+        self.assertEqual(commons.decide(self.info(restrictions="personality rights")), (False, "personality_rights"))
+        self.assertEqual(commons.decide(None), (False, "file_missing"))
+
+    def test_html_stripped(self):
+        from pipeline import commons
+        self.assertEqual(commons._strip_html('<a href="x">Ali&nbsp;Veli</a>'), "Ali Veli")
