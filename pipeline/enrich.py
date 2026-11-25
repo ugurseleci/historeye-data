@@ -80,6 +80,14 @@ def verify_and_enrich(records, items, closure):
     stats = collections.Counter()
     for qid, group in by_qid.items():
         item = items.get(qid)
+        if item and "redirect" not in item and wd.is_person(item):
+            # OSM'deki wikidata etiketi yapıyı değil oradaki kişiyi gösteriyor (ör. türbede gömülü padişah):
+            # eşleşme yok sayılır, kayıt kendi OSM bilgisiyle kalır; çakışma sayılmaz, nitelik alınmaz.
+            for r in group:
+                r.pop("qid", None)
+                r["flags"] = [f for f in r["flags"] if f != "wd_unverified"] + ["osm_wikidata_person"]
+            stats["wd_person"] += len(group)
+            continue
         if not item or "redirect" in item:
             for r in group:
                 r["ar"] = False

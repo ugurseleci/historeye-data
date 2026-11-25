@@ -80,6 +80,39 @@ def names(tags):
     return out
 
 
+# Yerel ad İngilizce mi? Bölge dili İngilizce değilken OSM `name` alanına İngilizce ad girilmiş olabiliyor
+# ("Damad Ibrahim Pasha Fountain"). Yalnızca belirgin durumlar: Türkçe harf yok ve İngilizce yapı sözcüğü var.
+_EN_WORDS = {
+    "fountain", "mosque", "tomb", "mausoleum", "church", "palace", "tower", "museum", "gate", "bath", "baths",
+    "mansion", "pavilion", "library", "school", "cistern", "castle", "monument", "memorial", "ruins", "synagogue",
+    "chapel", "monastery", "hotel", "clock", "of", "the",
+}
+_TR_CHARS = set("çğıöşüÇĞİÖŞÜ")
+
+
+def looks_english(name):
+    if not name or any(c in _TR_CHARS for c in name):
+        return False
+    return any(t in _EN_WORDS for t in re.findall(r"[a-z]+", name.lower()))
+
+
+def fix_local_language(records, local_lang):
+    """Bölge dili `local_lang` iken İngilizce görünen yerel adı `en`'e taşır (yoksa) ve yerel addan siler.
+    Döndürür: kendi dilinde (`local_lang`) adı hiç kalmayan kayıtlar; OSM'de `name:<dil>` eklenmesi gerekir."""
+    if not local_lang or local_lang == "en":
+        return []
+    missing = []
+    for r in records:
+        nm = r["names"]
+        if looks_english(nm.get("local")):
+            nm.setdefault("en", nm["local"])
+            del nm["local"]
+            r["flags"].append("local_name_english")
+            if local_lang not in nm:
+                missing.append(r)
+    return missing
+
+
 def heritage_level(tags):
     """OSM `heritage=1` UNESCO, 2 ulusal, 3+ bölgesel/yerel; bilinmiyorsa None."""
     v = tags.get("heritage")

@@ -88,6 +88,7 @@ def build(args):
         seen.add(r["id"])
         unique.append(r)
     records = unique
+    name_audit = classify.fix_local_language(records, args.local_lang)
 
     os.makedirs(args.out, exist_ok=True)
     grids, dem_stats = {}, {}
@@ -145,9 +146,22 @@ def build(args):
             "densest_3x3_bytes": neighbourhood_bytes(stats["tile_size"], densest) if densest else 0,
         },
         "index_bytes": stats["index_size"],
+        "local_name_english": {"moved_to_en": flags.get("local_name_english", 0), "no_local_language_name": len(name_audit)},
     }
     with open(os.path.join(args.out, "report.json"), "w", encoding="utf-8") as fh:
         json.dump(report, fh, ensure_ascii=False, indent=1)
+
+    # Kendi dilinde adı olmayan kayıtlar: OSM'de `name:<dil>` eklenmeli (ad uydurulmaz).
+    if name_audit:
+        with open(os.path.join(args.out, "ad-denetimi.csv"), "w", encoding="utf-8", newline="") as fh:
+            w = csv.writer(fh)
+            w.writerow(["id", "ingilizce_ad", "tür", "osm_bağlantısı", f"name:{args.local_lang}_önerisi"])
+            for r in sorted(name_audit, key=lambda r: r["id"]):
+                url = ""
+                if r["osm"]:
+                    kind, num = r["osm"][0], r["osm"][1:].split("-")[0]
+                    url = f"https://www.openstreetmap.org/{ {'n': 'node', 'w': 'way', 'r': 'relation'}[kind] }/{num}"
+                w.writerow([r["id"], r["names"].get("en", ""), r["type"], url, ""])
 
     # Elle denetim örneklemi: rastgele AR kayıtları (sabit tohum), ortofotoyla karşılaştırılacak.
     rng = random.Random(args.seed)
@@ -188,6 +202,7 @@ def main():
     b.add_argument("--commons", action="store_true", help="görsel lisans ve atıf bilgisi (Commons API)")
     b.add_argument("--roads", help="yol ağı PBF'i (osmium tags-filter w/highway): zemin kotu ızgarası üretir")
     b.add_argument("--dem-cells", type=int, default=32, help="karo kenarı başına ızgara hücresi")
+    b.add_argument("--local-lang", help="bölgenin dili (ör. tr): İngilizce girilmiş yerel adlar en'e taşınır")
     b.add_argument("--bbox", help="lat_min,lon_min,lat_max,lon_max: OSM'de olmayan statülü yapılar (QLever)")
     b.set_defaults(func=build)
     args = ap.parse_args()

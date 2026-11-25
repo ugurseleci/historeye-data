@@ -212,6 +212,11 @@ def classes(item):
     return set(item_ids(item, "P31"))
 
 
+def is_person(item):
+    """Öğe bir insan mı (P31 = Q5)? OSM'de türbe gibi yapılara yanlışlıkla gömülü kişinin QID'i girilebiliyor."""
+    return "Q5" in classes(item)
+
+
 def is_structure(item, closure):
     c = classes(item)
     if c & (closure[Q_STRUCTURE] | closure[Q_BUILDING]):
