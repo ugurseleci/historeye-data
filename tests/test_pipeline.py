@@ -255,3 +255,55 @@ class CommonsLicense(unittest.TestCase):
     def test_html_stripped(self):
         from pipeline import commons
         self.assertEqual(commons._strip_html('<a href="x">Ali&nbsp;Veli</a>'), "Ali Veli")
+
+
+class LocalNameLanguage(unittest.TestCase):
+    def rec(self, names):
+        return {"id": "osm-n1", "osm": "n1", "type": "fountain", "names": dict(names), "flags": []}
+
+    def test_english_local_name_moves_to_en(self):
+        r = self.rec({"local": "Damad Ibrahim Pasha Fountain"})
+        missing = classify.fix_local_language([r], "tr")
+        self.assertEqual(r["names"], {"en": "Damad Ibrahim Pasha Fountain"})
+        self.assertIn("local_name_english", r["flags"])
+        self.assertEqual(missing, [r])  # Türkçe adı yok: OSM'de name:tr eklenmeli
+
+    def test_existing_turkish_name_kept_and_not_audited(self):
+        r = self.rec({"local": "Yıldız Clock Tower", "tr": "Yıldız Saat Kulesi", "en": "Yıldız Clock Tower"})
+        # Türkçe harf var ("ı"): sezgi yanlış pozitif vermesin diye dokunulmaz.
+        self.assertEqual(classify.fix_local_language([r], "tr"), [])
+        self.assertIn("local", r["names"])
+        r2 = self.rec({"local": "Pera Palace Hotel", "tr": "Pera Palas", "en": "Pera Palace Hotel"})
+        self.assertEqual(classify.fix_local_language([r2], "tr"), [])
+        self.assertEqual(r2["names"], {"tr": "Pera Palas", "en": "Pera Palace Hotel"})
+
+    def test_turkish_and_neutral_names_untouched(self):
+        for name in ("Zeyrek Çinili Hamam", "Hasbahçe Kapısı", "Sarayburnu Arkeopark", "Hamal"):
+            r = self.rec({"local": name})
+            classify.fix_local_language([r], "tr")
+            self.assertEqual(r["names"], {"local": name}, name)
+
+    def test_english_region_does_nothing(self):
+        r = self.rec({"local": "Tower of London"})
+        self.assertEqual(classify.fix_local_language([r], "en"), [])
+        self.assertEqual(classify.fix_local_language([r], None), [])
+        self.assertEqual(r["names"], {"local": "Tower of London"})
+
+
+class WikidataPerson(unittest.TestCase):
+    def test_person_qid_is_dropped_not_conflict(self):
+        from pipeline import enrich
+
+        def claim(qid):
+            return {"rank": "normal", "mainsnak": {"snaktype": "value", "datavalue": {"value": {"id": qid}}}}
+
+        person = {"labels": {"en": "Suleiman the Magnificent"}, "claims": {"P31": [claim("Q5")]}}
+        r = {"id": "osm-n1", "osm": "n1", "type": "tomb", "names": {"local": "Kanuni Sultan Süleyman Türbesi"},
+             "qid": "Q8474", "flags": ["wd_unverified"], "ar": True, "priority": 3, "point": (41.0, 29.0),
+             "rep": (41.0, 29.0)}
+        _, stats = enrich.verify_and_enrich([r], {"Q8474": person}, closure={})
+        self.assertNotIn("qid", r)
+        self.assertEqual(r["flags"], ["osm_wikidata_person"])
+        self.assertTrue(r["ar"])  # kayıt kendi OSM bilgisiyle kalır
+        self.assertNotIn("period", r)
+        self.assertEqual(stats["wd_person"], 1)
